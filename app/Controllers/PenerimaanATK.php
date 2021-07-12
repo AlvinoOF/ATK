@@ -30,18 +30,23 @@ class PenerimaanATK extends BaseController
 
     public function detail($id = 0)
     {
+        $currentPage = $this->request->getVar('page_penerimaan') ? $this->request->getVar('page_penerimaan') : 1;
+
         $data = [
-            'title' => 'Detail Penerimaan ATK'
+            'title' => 'Detail PenerimaanATK',
+            'currentPage' => $currentPage
         ];
 
-        $this->builder->select('tbl_penerimaan.id as penerimaanid');
-        $this->builder->join('tbl_det_penerimaan', 'tbl_det_penerimaan.id_penerimaan = tbl_penerimaan.id');
-        $this->builder->where('tbl_penerimaan.id', $id);
-        $query = $this->builder->get();
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_det_penerimaan');
+        $query = $builder->select('tbl_det_penerimaan.id_penerimaan, id_det_pemesanan, jumlah,id')
+            ->join('tbl_penerimaan', 'tbl_det_penerimaan.id_penerimaan = tbl_penerimaan.id')
+            ->where('tbl_penerimaan.id', $id)->get();
 
         $data['tbl_det_penerimaan'] = $query->getRow();
 
-        return view('detailpenerimaan/detail', $data);
+
+        return view('penerimaanatk/detail', $data);
     }
 
     public function create()

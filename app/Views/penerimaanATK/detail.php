@@ -25,26 +25,23 @@
                         <table id="example1" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
                                     <th scope="col">ID Penerimaan</th>
                                     <th scope="col">ID Detail Pemesanan</th>
                                     <th scope="col">Jumlah</th>
+                                    <th scope="col">Aksi</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1 + (6 * ($currentPage - 1)); ?>
-                                <?php foreach ($tbl_det_penerimaan as $det_terima) : ?>
-                                    <tr>
-                                        <th scope="row"><?= $i++; ?></th>
-                                        <td><?= $det_terima['id_penerimaan']; ?></td>
-                                        <td><?= $det_terima['id_det_pemesanan']; ?></td>
-                                        <td><?= $det_terima['jumlah']; ?></td>
-                                        <td class="w-25">
-                                            <a href="/detailpenerimaan/edit/<?= $det_terima['id']; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                            <?php echo anchor('detailpenerimaan/delete/' . $det_terima['id'], '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
+                                <tr>
+                                    <td><?= $tbl_det_penerimaan->id_penerimaan; ?></td>
+                                    <td><?= $tbl_det_penerimaan->id_det_pemesanan; ?></td>
+                                    <td><?= $tbl_det_penerimaan->jumlah; ?></td>
+                                    <td class="w-25">
+                                        <a href="/detailpenerimaan/edit/<?= $tbl_det_penerimaan->id; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        <?php echo anchor('detailpenerimaan/delete/' . $tbl_det_penerimaan->id, '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

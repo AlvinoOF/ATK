@@ -25,8 +25,6 @@
                         <table id="example1" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">ID Pemesanan</th>
                                     <th scope="col">ID Alat Tulis</th>
                                     <th scope="col">Jumlah</th>
                                     <th scope="col">Harga</th>
@@ -34,19 +32,15 @@
                             </thead>
                             <tbody>
                                 <?php $i = 1 + (6 * ($currentPage - 1)); ?>
-                                <?php foreach ($tbl_det_pemesanan as $det_pesan) : ?>
-                                    <tr>
-                                        <th scope="row"><?= $i++; ?></th>
-                                        <td><?php echo $det_pesan->pemesananid; ?></td>
-                                        <td><?= $det_pesan['id_atk']; ?></td>
-                                        <td><?= $det_pesan['jumlah']; ?></td>
-                                        <td><?= $det_pesan['harga']; ?></td>
-                                        <td class="w-25">
-                                            <a href="/detailpemesanan/edit/<?= $det_pesan['id_det_pemesanan']; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                            <?php echo anchor('detailpemesanan/delete/' . $det_pesan['id_det_pemesanan'], '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
+                                <tr>
+                                    <td><?= $tbl_det_pemesanan->id_atk; ?></td>
+                                    <td><?= $tbl_det_pemesanan->jumlah; ?></td>
+                                    <td><?= $tbl_det_pemesanan->harga; ?></td>
+                                    <td class="w-25">
+                                        <a href="/detailpemesanan/edit/<?= $tbl_det_pemesanan->id_det_pemesanan; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        <?php echo anchor('detailpemesanan/delete/' . $tbl_det_pemesanan->id_det_pemesanan, '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

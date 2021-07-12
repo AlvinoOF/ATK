@@ -39,8 +39,8 @@
                                         <td><?= $terima['id_pesan']; ?></td>
                                         <td><?= $terima['tgl_terima']; ?></td>
                                         <td><?= $terima['id_user']; ?></td>
-                                        <td class="w-25">
-                                            <a href="/detailpenerimaan/<?= $terima['id']; ?>" class="btn btn-success btn-sm"><i class="mdi mdi-information-outline"></i></a>
+                                        <td>
+                                            <a href="<?= base_url('penerimaanatk/detail/' .  $terima['id']); ?>" class="btn btn-info">Detail</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

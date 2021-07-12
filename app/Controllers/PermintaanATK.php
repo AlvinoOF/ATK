@@ -28,20 +28,23 @@ class PermintaanATK extends BaseController
         return view('permintaanatk/index', $data);
     }
 
-    public function detail($id_permintaan = 0)
+    public function detail($id = 0)
     {
+        $currentPage = $this->request->getVar('page_permintaan') ? $this->request->getVar('page_permintaan') : 1;
+
         $data = [
-            'title' => 'Detail Alat Tulis'
+            'title' => 'Detail PermintaanATK',
+            'currentPage' => $currentPage
         ];
 
-        $this->builder->select('id_det_pemesanan, tbl_det_pemesanan.id_pemesanan as pemesananid, id_atk, jumlah, harga');
-        $this->builder->join('tbl_pemesanan', 'tbl_det_pemesanan.id_pemesanan = tbl_pemesanan.id');
-        $this->builder->where('tbl_det_pemesanan.id_pemesanan', $id_permintaan);
-        $query = $this->builder->get();
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_det_permintaan');
+        $query = $builder->select('id_det_permintaan, tbl_det_permintaan.id_permintaan as permintaanid, id_atk, jumlah,tgl_permintaan,status,id_user,id_permintaan')
+            ->join('tbl_permintaan', 'tbl_det_permintaan.id_permintaan = tbl_permintaan.id')
+            ->where('tbl_permintaan.id', $id)->get();
 
-        $data['tbl_det_pemesanan'] = $query->getRow();
-
-        return view('permintaan/detail', $data);
+        $data['tbl_det_permintaan'] = $query->getRow();
+        return view('permintaanatk/detail', $data);
     }
 
     public function create()

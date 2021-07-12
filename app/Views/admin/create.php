@@ -12,7 +12,7 @@
         <div class="col-8">
             <h2 class="my-3">Form Tambah User</h2>
 
-            <form action="/admin/save" method="post" enctype="multipart/form-data">
+            <form action="<?= base_url('admin/save'); ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
                 <div class="form-group">
                     <input type="email" class="form-control form-control-user <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" name="email" placeholder="Email Address">
@@ -29,9 +29,10 @@
                 <div class="row mb-3">
                     <label for="name" class="col-sm-2 col-form-label">pilih Role</label>
                     <div class="col-sm-10">
-                        <select name="role" id="role">
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
+                        <select name="role" class="form-control" id="role">
+                            <?php foreach ($auth_groups as $auth_groups) : ?>
+                                <option value="<?= $auth_groups['id'] ?>"><?= $auth_groups['name']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>

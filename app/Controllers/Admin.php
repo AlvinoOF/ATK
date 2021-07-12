@@ -14,6 +14,7 @@ class Admin extends BaseController
 	{
 		$this->db      = \Config\Database::connect();
 		$this->builder = $this->db->table('users');
+
 		$this->userModel = new UserModel();
 	}
 
@@ -23,7 +24,7 @@ class Admin extends BaseController
 		// $users = new \Myth\Auth\Models\UserModel();
 		// $data['users'] = $users->findAll();
 
-		$this->builder->select('users.id as userid, username, email, name');
+		$this->builder->select('users.id as userid, username, email, name, role');
 		$this->builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
 		$this->builder->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id');
 		$query = $this->builder->get();
@@ -60,6 +61,13 @@ class Admin extends BaseController
 			'validation' => \Config\Services::validation()
 		];
 
+		$db      = \Config\Database::connect();
+		$builder = $db->table('auth_groups');
+
+		$builder->select('id, name');
+		$query = $builder->get();
+
+		$data['auth_groups'] = $query->getResultArray();
 		return view('admin/create', $data);
 	}
 
@@ -87,8 +95,11 @@ class Admin extends BaseController
 			'username'  => $this->request->getVar('username'),
 			'password'  => $this->request->getVar('password'),
 			'name'  => $this->request->getVar('name'),
-			'active' => 1
+			'role'  => $this->request->getVar('role'),
+			'active' => 1,
+			'slug' => $slug
 		);
+
 		$dt = new User($data);
 		$this->userModel->withGroup('admin')->save($dt);
 

@@ -28,6 +28,26 @@ class Distribusi extends BaseController
         return view('distribusi/index', $data);
     }
 
+    public function detail($id = 0)
+    {
+        $currentPage = $this->request->getVar('page_distribusi') ? $this->request->getVar('page_distribusi') : 1;
+
+        $data = [
+            'title' => 'Detail DistribusiTK',
+            'currentPage' => $currentPage
+        ];
+
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_det_dist');
+        $query = $builder->select('tbl_det_dist.id_dist, jumlah, id')
+            ->join('tbl_distribusi', 'tbl_det_dist.id_dist = tbl_distribusi.id')
+            ->where('tbl_distribusi.id', $id)->get();
+
+        $data['tbl_det_dist'] = $query->getRow();
+
+        return view('distribusi/detail', $data);
+    }
+
     public function create()
     {
         $data = [

@@ -25,26 +25,18 @@
                         <table id="example1" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+
                                     <th scope="col">ID Permintaan</th>
                                     <th scope="col">ID Alat Tulis</th>
                                     <th scope="col">Jumlah</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1 + (6 * ($currentPage - 1)); ?>
-                                <?php foreach ($tbl_det_permintaan as $det_minta) : ?>
-                                    <tr>
-                                        <th scope="row"><?= $i++; ?></th>
-                                        <td><?= $det_minta['id_permintaan']; ?></td>
-                                        <td><?= $det_minta['id_atk']; ?></td>
-                                        <td><?= $det_minta['jumlah']; ?></td>
-                                        <td class="w-25">
-                                            <a href="/detailpermintaan/edit/<?= $det_minta['id_det_permintaan']; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                            <?php echo anchor('detailpermintaan/delete/' . $det_minta['id_det_permintaan'], '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
+                                <tr>
+                                    <td><?= $tbl_det_permintaan->id_permintaan; ?></td>
+                                    <td><?= $tbl_det_permintaan->id_atk; ?></td>
+                                    <td><?= $tbl_det_permintaan->jumlah; ?></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

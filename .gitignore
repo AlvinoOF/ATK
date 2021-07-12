@@ -125,3 +125,4 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+ci4login (1).sql

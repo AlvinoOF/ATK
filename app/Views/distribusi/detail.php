@@ -5,20 +5,17 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mt-3 mb-4 text-gray-800">Permintaan ATK</h1>
+    <h1 class="h3 mt-3 mb-4 text-gray-800">Detail Distribusi ATK</h1>
 
     <div class="row row-sm">
         <div class="col-xl-12">
             <div class="card mg-b-20">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Permintaan ATK</h4>
+                        <h4 class="card-title mg-b-0">Detail Distribusi ATK</h4>
                         <div class="d-flex my-xl-auto right-content">
                             <div class="mb-3 mb-xl-0" style="margin-right: 10px;">
-                                <a href="<?= base_url('/permintaanatk/create'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
-                            </div>
-                            <div class="mb-3 mb-xl-0">
-                                <a href="<?= base_url('/detailpermintaan/detail'); ?>" class="btn btn-primary"><i class="mdi mdi-plus"></i> Detail</a>
+                                <a href="<?= base_url('/detaildistribusi/create'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
                             </div>
                         </div>
                     </div>
@@ -28,25 +25,20 @@
                         <table id="example1" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">ID User</th>
-                                    <th scope="col">Tanggal Permintaan</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">ID Distribusi</th>
+                                    <th scope="col">Jumlah</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1 + (6 * ($currentPage - 1)); ?>
-                                <?php foreach ($tbl_permintaan as $minta) : ?>
-                                    <tr>
-                                        <th scope="row"><?= $i++; ?></th>
-                                        <td><?= $minta['id_user']; ?></td>
-                                        <td><?= $minta['tgl_permintaan']; ?></td>
-                                        <td><?= $minta['status']; ?></td>
-                                        <td>
-                                            <a href="<?= base_url('permintaanatk/detail/' .  $minta['id']); ?>" class="btn btn-info">Detail</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
+                                <tr>
+                                    <td><?= $tbl_det_dist->id_dist; ?></td>
+                                    <td><?= $tbl_det_dist->jumlah; ?></td>
+                                    <td class="w-25">
+                                        <a href="/detaildistribusi/edit/<?= $tbl_det_dist->id; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        <?php echo anchor('detailpemesanan/delete/' . $tbl_det_dist->id, '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
