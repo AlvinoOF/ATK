@@ -29,15 +29,15 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Email</th>
                                     <th scope="col">Username</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
-                                <?php foreach ($users as $user) : ?>
+                                <?php foreach ($users->getResult() as $user) : ?>
                                     <tr>
                                         <th scope="row"><?= $i++; ?></th>
                                         <td><?= $user->username; ?></td>

@@ -17,7 +17,6 @@
 				</span>
 				<?= view('Myth\Auth\Views\_message_block') ?>
 
-
 				<?php if ($config->validFields === ['email']) : ?>
 					<div class="wrap-input100 validate-input" data-validate="Masukan username anda">
 						<input class="input100" type="email" name="login">
@@ -38,7 +37,6 @@
 					</div>
 				<?php endif; ?>
 
-
 				<div class="wrap-input100 validate-input <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" data-validate="Masukan password anda">
 					<input class="input100" type="password" name="password">
 					<span class="focus-input100"></span>
@@ -57,7 +55,6 @@
 						</div>
 					</div>
 				<?php endif; ?>
-
 
 				<div class="container-login100-form-btn">
 					<button class="login100-form-btn">

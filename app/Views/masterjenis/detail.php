@@ -17,9 +17,9 @@
                             <h5 class="card-title"><?= $master_jenis['nama_jenis']; ?></h5>
                             <p class="card-text"><b>Jenis Barang: </b><?= $master_jenis['nama_jenis']; ?></p>
 
-                            <a href="/alattulis/edit/<?= $master_jenis['id']; ?>" class="btn btn-warning">Edit</a>
+                            <a href="/masterjenis/edit/<?= $master_jenis['id']; ?>" class="btn btn-warning">Edit</a>
 
-                            <form action="/alattulis/<?= $master_jenis['id']; ?>" method="post" class="d-inline">
+                            <form action="/masterjenis/<?= $master_jenis['id']; ?>" method="post" class="d-inline">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-danger" onclick="javascript: return confirm('Yakin?') ">Delete</button>

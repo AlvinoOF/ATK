@@ -42,8 +42,9 @@
                                         <td><?= $distribusi['id_permintaan']; ?></td>
                                         <td><?= $distribusi['tgl_distribusi']; ?></td>
                                         <td><?= $distribusi['id_user']; ?></td>
-                                        <td>
-                                            <a href="<?= base_url('distribusi/detail/' .  $distribusi['id']); ?>" class="btn btn-info">Detail</a>
+                                        <td class="w-25">
+                                            <a href="/distribusi/edit/<?= $distribusi['id']; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                            <?php echo anchor('distribusi/delete/' . $distribusi['id'], '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

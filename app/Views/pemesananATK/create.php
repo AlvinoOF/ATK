@@ -17,9 +17,10 @@
                 <div class="row mb-3">
                     <label for="id_user" class="col-sm-2 col-form-label">ID User</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="id_user" name="id_user">
+                        <input type="text" class="form-control" id="id_user" name="id_user" value="<?= user()->id ?>" disabled>
                     </div>
                 </div>
+
 
                 <div class="row mb-3">
                     <label for="tgl_pemesanan" class="col-sm-2 col-form-label">Tanggal Pemesanan</label>

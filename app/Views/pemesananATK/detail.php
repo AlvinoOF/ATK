@@ -15,7 +15,7 @@
                         <h4 class="card-title mg-b-0">Detail Pemesanan ATK</h4>
                         <div class="d-flex my-xl-auto right-content">
                             <div class="mb-3 mb-xl-0" style="margin-right: 10px;">
-                                <a href="<?= base_url('/detailpemesanan/create'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
+                                <a href="<?= base_url('/pemesananatk/create'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
                             </div>
                         </div>
                     </div>
@@ -28,17 +28,17 @@
                                     <th scope="col">ID Alat Tulis</th>
                                     <th scope="col">Jumlah</th>
                                     <th scope="col">Harga</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1 + (6 * ($currentPage - 1)); ?>
                                 <tr>
                                     <td><?= $tbl_det_pemesanan->id_atk; ?></td>
                                     <td><?= $tbl_det_pemesanan->jumlah; ?></td>
                                     <td><?= $tbl_det_pemesanan->harga; ?></td>
                                     <td class="w-25">
-                                        <a href="/detailpemesanan/edit/<?= $tbl_det_pemesanan->id_det_pemesanan; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                        <?php echo anchor('detailpemesanan/delete/' . $tbl_det_pemesanan->id_det_pemesanan, '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
+                                        <a href="/pemesananatk/edit/<?= $tbl_det_pemesanan->id_det_pemesanan; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        <?php echo anchor('pemesananatk/delete/' . $tbl_det_pemesanan->id_det_pemesanan, '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
                                     </td>
                                 </tr>
                             </tbody>

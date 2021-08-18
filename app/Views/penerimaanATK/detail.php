@@ -28,8 +28,6 @@
                                     <th scope="col">ID Penerimaan</th>
                                     <th scope="col">ID Detail Pemesanan</th>
                                     <th scope="col">Jumlah</th>
-                                    <th scope="col">Aksi</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,8 +36,8 @@
                                     <td><?= $tbl_det_penerimaan->id_det_pemesanan; ?></td>
                                     <td><?= $tbl_det_penerimaan->jumlah; ?></td>
                                     <td class="w-25">
-                                        <a href="/detailpenerimaan/edit/<?= $tbl_det_penerimaan->id; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                        <?php echo anchor('detailpenerimaan/delete/' . $tbl_det_penerimaan->id, '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
+                                        <a href="/penerimaanatk/edit/<?= $tbl_det_penerimaan->id_penerimaan; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        <?php echo anchor('penerimaanatk/delete/' . $tbl_det_penerimaan->id_penerimaan, '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
                                     </td>
                                 </tr>
                             </tbody>

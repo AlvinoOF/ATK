@@ -17,9 +17,6 @@
                             <div class="mb-3 mb-xl-0" style="margin-right: 10px;">
                                 <a href="<?= base_url('/pemesananatk/create'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
                             </div>
-                            <div class="mb-3 mb-xl-0">
-                                <a href="<?= base_url('/detailpemesanan'); ?>" class="btn btn-info"><i class="mdi mdi-information-outline"></i> Detail</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -49,9 +46,14 @@
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
+
                             </tbody>
                         </table>
+
+
                     </div>
+
+                    <?= $pager->links() ?>
                 </div>
             </div>
         </div>

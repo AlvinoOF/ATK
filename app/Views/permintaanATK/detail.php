@@ -15,7 +15,7 @@
                         <h4 class="card-title mg-b-0">Detail Permintaan ATK</h4>
                         <div class="d-flex my-xl-auto right-content">
                             <div class="mb-3 mb-xl-0" style="margin-right: 10px;">
-                                <a href="<?= base_url('/detailpermintaan/create'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
+                                <a href="<?= base_url('/permintaanatk/create'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
                             </div>
                         </div>
                     </div>
@@ -25,17 +25,19 @@
                         <table id="example1" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
-
-                                    <th scope="col">ID Permintaan</th>
                                     <th scope="col">ID Alat Tulis</th>
                                     <th scope="col">Jumlah</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><?= $tbl_det_permintaan->id_permintaan; ?></td>
                                     <td><?= $tbl_det_permintaan->id_atk; ?></td>
                                     <td><?= $tbl_det_permintaan->jumlah; ?></td>
+                                    <td class="w-25">
+                                        <a href="/permintaanatk/edit/<?= $tbl_det_permintaan->id_det_permintaan; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        <?php echo anchor('permintaanatk/delete/' . $tbl_det_permintaan->id_det_permintaan, '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

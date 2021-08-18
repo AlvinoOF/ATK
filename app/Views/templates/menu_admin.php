@@ -30,6 +30,7 @@
             </svg>
             <span class="side-menu__label">ATK Management</span><i class="angle fe fe-chevron-down"></i>
         </a>
+
         <ul class="slide-menu">
             <li class="sub-slide">
                 <a class="sub-side-menu__item" href="<?= base_url('masterjenis'); ?>"><span class="sub-side-menu__label">Jenis ATK</span></a>
@@ -50,6 +51,7 @@
             <span class="side-menu__label">Permintaan ATK</span>
         </a>
     </li>
+
     <li class="slide">
         <a class="side-menu__item" data-toggle="slide" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" class="side-menu__icon" viewBox="0 0 24 24">

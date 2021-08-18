@@ -32,6 +32,7 @@
                                     <th scope="col">ID User</th>
                                     <th scope="col">Tanggal Permintaan</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,6 +51,8 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <?= $pager->links() ?>
                 </div>
             </div>
         </div>
