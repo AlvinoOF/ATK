@@ -20,7 +20,7 @@ class PenerimaanATK extends BaseController
 
         $data = [
             'title' => 'Penerimaan Alat Tulis',
-            'tbl_penerimaan' => $this->PenerimaanATKModel->paginate(6, 'tbl_penerimaan'),
+            'tbl_penerimaan' => $this->PenerimaanATKModel->paginate(6),
             'pager' => $this->PenerimaanATKModel->pager,
             'currentPage' => $currentPage
         ];
@@ -35,16 +35,16 @@ class PenerimaanATK extends BaseController
         $data = [
             'title' => 'Detail PenerimaanATK',
             'currentPage' => $currentPage
+
         ];
 
         $db      = \Config\Database::connect();
         $builder = $db->table('tbl_det_penerimaan');
-        $query = $builder->select('tbl_det_penerimaan.id_penerimaan, id_det_pemesanan, jumlah,id')
+        $query = $builder->select('id_penerimaan, id_det_pemesanan, jumlah')
             ->join('tbl_penerimaan', 'tbl_det_penerimaan.id_penerimaan = tbl_penerimaan.id')
             ->where('tbl_penerimaan.id', $id)->get();
 
         $data['tbl_det_penerimaan'] = $query->getRow();
-
 
         return view('penerimaanatk/detail', $data);
     }
@@ -59,12 +59,39 @@ class PenerimaanATK extends BaseController
         return view('penerimaanatk/create', $data);
     }
 
+    public function sendEmail()
+    {
+        $email = \Config\Services::email();
+        $id_user = $this->request->getVar('id_user');
+
+        $email->setTo('derago118@gmail.com');
+        $email->setFrom('johndoe@gmail.com');
+
+        $email->setSubject("Invoice Penerimaan ATK");
+        $email->setMessage("id user" . $id_user);
+
+        if ($email->send() == TRUE) {
+            echo 'Email successfully sent';
+        } else {
+            echo "email gagal kirim";
+        }
+
+        $email->send();
+    }
+
     public function save()
     {
+        $this->sendEmail();
+        $id_pesan   = $this->request->getVar('id_pesan');
+        $no_erp     = $this->request->getVar('no_erp');
+        $tgl_terima = $this->request->getVar('tgl_terima');
+        $id_user    = $this->request->getVar('id_user');
+
         $this->PenerimaanATKModel->save([
-            'id_pesan' => $this->request->getVar('id_pesan'),
-            'tgl_terima'        => $this->request->getVar('tgl_terima'),
-            'id_user'        => $this->request->getVar('id_user')
+            'id_pesan'   => $id_pesan,
+            'no_erp'     => $no_erp,
+            'tgl_terima' => $tgl_terima,
+            'id_user'    => $id_user,
         ]);
 
         session()->setFlashdata('pesan', 'Berhasil ditambahkan');
@@ -72,35 +99,48 @@ class PenerimaanATK extends BaseController
         return redirect()->to('/penerimaanatk');
     }
 
-    public function edit($id)
+    public function edit($id_penerimaan)
     {
         $data = [
             'title' => 'Form Update Penerimaan ATK',
             'validation' => \Config\Services::validation(),
-            'tbl_penerimaan' => $this->PenerimaanATKModel->getPenerimaanATK($id)
+            'tbl_penerimaan' => $this->PenerimaanATKModel->getDetailPenerimaan($id_penerimaan)
         ];
+
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_det_penerimaan');
+        $query = $builder->select('id_det_penerimaan, id_det_pemesanan, jumlah')
+            ->join('tbl_penerimaan', 'tbl_det_penerimaan.id_penerimaan = tbl_penerimaan.id')
+            ->where('tbl_det_penerimaan.id_det_penerimaan', $id_penerimaan)->get();
+
+        $data['penerimaanatk'] = $query->getRow();
 
         return view('penerimaanatk/edit', $data);
     }
 
-    public function update($id)
+    public function update($id_penerimaan)
     {
-        $this->PenerimaanATKModel->save([
-            'id'             => $id,
-            'id_pesan' => $this->request->getVar('id_pesan'),
-            'tgl_terima'        => $this->request->getVar('tgl_terima'),
-            'id_user'        => $this->request->getVar('id_user')
-        ]);
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_det_penerimaan');
 
-        session()->setFlashdata('pesan', 'Berhasil diupdate');
+        $data = [
+            'id_penerimaan'             => $id_penerimaan,
+            'jumlah' => $this->request->getVar('jumlah'),
+            'id_det_pemesanan' => $this->request->getVar('id_det_pemesanan')
+        ];
+
+        $builder->replace($data);
 
         return redirect()->to('/penerimaanatk');
     }
 
-    public function delete($id)
+    public function delete($id_det_penerimaan)
     {
-        $this->PenerimaanATKModel->delete($id);
-        session()->setFlashdata('pesan', 'Berhasil dihapus');
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_det_penerimaan');
+
+        $builder->delete(['id_det_penerimaan' => $id_det_penerimaan]);
+
         return redirect()->to('/penerimaanatk');
     }
 

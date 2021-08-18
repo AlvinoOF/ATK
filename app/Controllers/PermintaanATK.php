@@ -20,7 +20,7 @@ class PermintaanATK extends BaseController
 
         $data = [
             'title' => 'Permintaan Alat Tulis',
-            'tbl_permintaan' => $this->PermintaanATKModel->paginate(6, 'tbl_permintaan'),
+            'tbl_permintaan' => $this->PermintaanATKModel->paginate(6),
             'pager' => $this->PermintaanATKModel->pager,
             'currentPage' => $currentPage
         ];
@@ -39,11 +39,12 @@ class PermintaanATK extends BaseController
 
         $db      = \Config\Database::connect();
         $builder = $db->table('tbl_det_permintaan');
-        $query = $builder->select('id_det_permintaan, tbl_det_permintaan.id_permintaan as permintaanid, id_atk, jumlah,tgl_permintaan,status,id_user,id_permintaan')
+        $query = $builder->select('id_det_permintaan, tbl_det_permintaan.id_permintaan as permintaanid, id_atk, jumlah')
             ->join('tbl_permintaan', 'tbl_det_permintaan.id_permintaan = tbl_permintaan.id')
             ->where('tbl_permintaan.id', $id)->get();
 
         $data['tbl_det_permintaan'] = $query->getRow();
+
         return view('permintaanatk/detail', $data);
     }
 
@@ -57,12 +58,37 @@ class PermintaanATK extends BaseController
         return view('permintaanatk/create', $data);
     }
 
+    public function sendEmail()
+    {
+        $email = \Config\Services::email();
+        $id_user = $this->request->getVar('id_user');
+
+        $email->setTo('derago118@gmail.com');
+        $email->setFrom('johndoe@gmail.com');
+
+        $email->setSubject("Invoice Permintaan ATK");
+        $email->setMessage("id user" . $id_user);
+
+        if ($email->send() == TRUE) {
+            echo 'Email successfully sent';
+        } else {
+            echo "email gagal kirim";
+        }
+
+        $email->send();
+    }
+
     public function save()
     {
+        $this->sendEmail();
+        $id_user = $this->request->getVar('id_user');
+        $tgl_permintaan = $this->request->getVar('tgl_permintaan');
+        $status = $this->request->getVar('status');
+
         $this->PermintaanATKModel->save([
-            'id_user' => $this->request->getVar('id_user'),
-            'tgl_permintaan'        => $this->request->getVar('tgl_permintaan'),
-            'status'        => $this->request->getVar('status')
+            'id_user' => $id_user,
+            'tgl_permintaan'        => $tgl_permintaan,
+            'status'        => $status
         ]);
 
         session()->setFlashdata('pesan', 'Berhasil ditambahkan');
@@ -70,35 +96,47 @@ class PermintaanATK extends BaseController
         return redirect()->to('/permintaanatk');
     }
 
-    public function edit($id_permintaan)
+    public function edit($id_det_permintaan)
     {
         $data = [
             'title' => 'Form Edit Permintaan ATK',
             'validation' => \Config\Services::validation(),
-            'tbl_permintaan' => $this->PermintaanATKModel->getPermintaanATK($id_permintaan)
+            'tbl_permintaan' => $this->PermintaanATKModel->getDetailPermintaan($id_det_permintaan)
         ];
+
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_det_permintaan');
+        $query = $builder->select('id_det_permintaan, tbl_det_permintaan.id_permintaan, id_atk, jumlah')
+            ->join('tbl_permintaan', 'tbl_det_permintaan.id_permintaan = tbl_permintaan.id')
+            ->where('tbl_det_permintaan.id_det_permintaan', $id_det_permintaan)->get();
+
+        $data['permintaanatk'] = $query->getRow();
 
         return view('permintaanatk/edit', $data);
     }
 
-    public function update($id_permintaan)
+    public function update($id_det_permintaan)
     {
-        $this->PermintaanATKModel->save([
-            'id_permintaan'             => $id_permintaan,
-            'id_user' => $this->request->getVar('id_user'),
-            'tgl_permintaan'        => $this->request->getVar('tgl_permintaan'),
-            'status'        => $this->request->getVar('status')
-        ]);
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_det_permintaan');
 
-        session()->setFlashdata('pesan', 'Berhasil diupdate');
+        $data = [
+            'id_det_permintaan'             => $id_det_permintaan,
+            'jumlah' => $this->request->getVar('jumlah')
+        ];
+
+        $builder->replace($data);
 
         return redirect()->to('/permintaanatk');
     }
 
-    public function delete($id_permintaan)
+    public function delete($id_det_permintaan)
     {
-        $this->PermintaanATKModel->delete($id_permintaan);
-        session()->setFlashdata('pesan', 'Berhasil dihapus');
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_det_permintaan');
+
+        $builder->delete(['id_det_permintaan' => $id_det_permintaan]);
+
         return redirect()->to('/permintaanatk');
     }
 
