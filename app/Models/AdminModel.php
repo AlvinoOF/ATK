@@ -8,7 +8,7 @@ class AdminModel extends Model
 {
     protected $table = 'users';
     protected $useTimestamps = true;
-    protected $allowedFields = ['email', 'username', 'fullname', 'user_image', 'password', 'role'];
+    protected $allowedFields = ['email', 'username', 'fullname', 'user_image', 'password'];
 
     public function getUser($id = false)
     {

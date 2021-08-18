@@ -10,12 +10,12 @@ class PenerimaanATKModel extends Model
     protected $useTimestamps = true;
     protected $allowedFields = ['id_pesan', 'tgl_terima', 'id_user', 'id_penerimaan', 'id_det_pemesanan', 'jumlah'];
 
-    public function getDetailPenerimaan($id_det_penerimaan)
+    public function getDetailPenerimaan($id_penerimaan)
     {
         $db = \Config\Database::connect();
         $builder = $db->table('tbl_det_penerimaan');
 
-        return $builder->where(['id_det_penerimaan' => $id_det_penerimaan])
+        return $builder->where(['id_penerimaan' => $id_penerimaan])
             ->get()->getResult();
     }
 }
