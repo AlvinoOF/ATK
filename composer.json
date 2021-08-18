@@ -11,7 +11,8 @@
 		"codeigniter4/framework": "^4",
 		"fakerphp/faker": "^1.14",
 		"myth/auth": "^1.0@beta",
-		"pusher/pusher-php-server": "^7.0"
+		"pusher/pusher-php-server": "^7.0",
+		"tatter/pushover": "^1.0"
 	},
 	"require-dev": {
 		"mikey179/vfsstream": "^1.6",
