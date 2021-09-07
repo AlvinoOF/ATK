@@ -10,21 +10,35 @@
 <div class="container">
     <div class="row">
         <div class="col-8">
-            <h2 class="my-3">Form Permintaan ATK</h2>
+            <h2 class="my-3">Form Permintaan UMK</h2>
 
-            <form action="/permintaanatk/save" method="post" enctype="multipart/form-data">
+            <form action="/permintaanumk/save_tambah_umk" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
                 <div class="row mb-3">
-                    <label for="id_user" class="col-sm-2 col-form-label">ID User</label>
+                    <label for="no_erp" class="col-sm-2 col-form-label">NO ERP</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="id_user" name="id_user">
+                        <input type="text" class="form-control" id="no_erp" name="no_erp">
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label for="tgl_permintaan" class="col-sm-2 col-form-label">Tanggal Permintaan</label>
+                    <label for="tgl_umk" class="col-sm-2 col-form-label">Tanggal Pengajuan</label>
                     <div class="col-sm-10">
-                        <input type="datetime-local" class="form-control" id="tgl_permintaan" name="tgl_permintaan" value="">
+                        <input type="datetime-local" class="form-control" id="tgl_umk" name="tgl_umk" value="">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="user" class="col-sm-2 col-form-label">User</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="user" name="user" value="">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="jumlah" class="col-sm-2 col-form-label">Jumlah</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="jumlah_umk" name="jumlah_umk" value="">
                     </div>
                 </div>
 
@@ -34,10 +48,11 @@
                         <input type="text" class="form-control" id="status" name="status" value="">
                     </div>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Tambah</button>
             </form>
             <br><br>
-            <a href="/permintaanatk">
+            <a href="/permintaanumk">
                 <--- Kembali</a>
         </div>
     </div>

@@ -15,10 +15,7 @@
                         <h4 class="card-title mg-b-0">List UMK</h4>
                         <div class="d-flex my-xl-auto right-content">
                             <div class="mb-3 mb-xl-0" style="margin-right: 10px;">
-                                <a href="<?= base_url('/permintaanumk/create'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
-                            </div>
-                            <div class="mb-3 mb-xl-0">
-                                <a href="<?= base_url('/detailpermintaan/detail'); ?>" class="btn btn-primary"><i class="mdi mdi-plus"></i> Detail</a>
+                                <a href="<?= base_url('/permintaanumk/tambah_umk'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
                             </div>
                         </div>
                     </div>
@@ -48,11 +45,11 @@
                                         <td><?= $umk['tgl_umk']; ?></td>
                                         <td><?= $umk['batas_pumk']; ?></td>
                                         <td><?= $umk['user']; ?></td>
-                                        <td><?= $umk['jumlah']; ?></td>
+                                        <td><?= $umk['jumlah_umk']; ?></td>
                                         <td><?= $umk['sisa']; ?></td>
                                         <td><?= $umk['status']; ?></td>
                                         <td>
-                                            <a href="<?= base_url('permintaanumk/edit/' .  $umk['id']); ?>" class="btn btn-info">Detail</a>
+                                            <a href="<?= base_url('permintaanumk/terima_umk/' .  $umk['id']); ?>" class="btn btn-info">Detail</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

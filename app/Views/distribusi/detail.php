@@ -5,17 +5,17 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mt-3 mb-4 text-gray-800">Detail Distribusi ATK</h1>
+    <h1 class="h3 mt-3 mb-4 text-gray-800">Detail Pemesanan ATK</h1>
 
     <div class="row row-sm">
         <div class="col-xl-12">
             <div class="card mg-b-20">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Detail Distribusi ATK</h4>
+                        <h4 class="card-title mg-b-0">Detail Pemesanan ATK</h4>
                         <div class="d-flex my-xl-auto right-content">
                             <div class="mb-3 mb-xl-0" style="margin-right: 10px;">
-                                <a href="<?= base_url('/detaildistribusi/create'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
+                                <a href="<?= base_url('/pemesananatk/create'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
                             </div>
                         </div>
                     </div>
@@ -25,18 +25,20 @@
                         <table id="example1" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
-                                    <th scope="col">ID Distribusi</th>
+                                    <th scope="col">ID Alat Tulis</th>
                                     <th scope="col">Jumlah</th>
+                                    <th scope="col">Harga</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1 + (6 * ($currentPage - 1)); ?>
                                 <tr>
-                                    <td><?= $tbl_det_dist->id_dist; ?></td>
-                                    <td><?= $tbl_det_dist->jumlah; ?></td>
+                                    <td><?= $tbl_det_pemesanan->id_atk; ?></td>
+                                    <td><?= $tbl_det_pemesanan->jumlah; ?></td>
+                                    <td><?= $tbl_det_pemesanan->harga; ?></td>
                                     <td class="w-25">
-                                        <a href="/detaildistribusi/edit/<?= $tbl_det_dist->id; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                        <?php echo anchor('detailpemesanan/delete/' . $tbl_det_dist->id, '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
+                                        <a href="/pemesananatk/edit/<?= $tbl_det_pemesanan->id_det_pemesanan; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        <?php echo anchor('pemesananatk/delete/' . $tbl_det_pemesanan->id_det_pemesanan, '<div class="btn btn-danger btn-sm"><i class = "fa fa-trash"></i></div>') ?>
                                     </td>
                                 </tr>
                             </tbody>
