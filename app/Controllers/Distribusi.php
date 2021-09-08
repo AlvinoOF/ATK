@@ -20,7 +20,7 @@ class Distribusi extends BaseController
 
         $data = [
             'title' => 'Laporan Distribusi',
-            'tbl_distribusi' => $this->DistribusiModel->paginate(6, 'tbl_distribusi'),
+            'tbl_distribusi' => $this->DistribusiModel->paginate(6),
             'pager' => $this->DistribusiModel->pager,
             'currentPage' => $currentPage
         ];
@@ -64,6 +64,9 @@ class Distribusi extends BaseController
 
     public function update($id)
     {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_distribusi');
+
         $this->DistribusiModel->save([
             'id'             => $id,
             'id_permintaan' => $this->request->getVar('id_permintaan'),
@@ -71,7 +74,7 @@ class Distribusi extends BaseController
             'id_user'        => $this->request->getVar('id_user')
         ]);
 
-        session()->setFlashdata('pesan', 'Berhasil diupdate');
+        $builder->replace($data);
 
         return redirect()->to('/distribusi');
     }
