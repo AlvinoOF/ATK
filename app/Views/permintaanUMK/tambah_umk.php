@@ -24,28 +24,28 @@
                 <div class="row mb-3">
                     <label for="tgl_umk" class="col-sm-2 col-form-label">Tanggal Pengajuan</label>
                     <div class="col-sm-10">
-                        <input type="datetime-local" class="form-control" id="tgl_umk" name="tgl_umk" value="">
+                        <input type="datetime-local" class="form-control" id="tgl_umk" name="tgl_umk">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="user" class="col-sm-2 col-form-label">User</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="user" name="user" value="">
+                        <input type="text" class="form-control" id="user" name="user">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="jumlah" class="col-sm-2 col-form-label">Jumlah</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="jumlah_umk" name="jumlah_umk" value="">
+                        <input type="text" class="form-control" id="jumlah_umk" name="jumlah_umk">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="status" class="col-sm-2 col-form-label">Status</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="status" name="status" value="">
+                        <input type="text" class="form-control" id="status" name="status">
                     </div>
                 </div>
 

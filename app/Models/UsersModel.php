@@ -21,12 +21,12 @@ class UsersModel
     {
         $builder = $this->db->table('users');
         $builder->select('users.id as userid, username, email, fullname, user_image, name');
-		$builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
-		$builder->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id');
-        if($id != null):
+        $builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
+        $builder->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id');
+        if ($id != null) :
             $builder->where('users.id', $id);
         endif;
-		return $builder->get();
+        return $builder->get();
     }
     public function getRole()
     {

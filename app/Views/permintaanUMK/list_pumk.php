@@ -5,7 +5,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mt-3 mb-4 text-gray-800">List UMK</h1>
+    <h1 class="h3 mt-3 mb-4 text-gray-800">List PUMK</h1>
 
     <div class="row row-sm">
         <div class="col-xl-12">
@@ -21,19 +21,39 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <label for="no_erp" class="col-sm-2 col-form-label"><b>No ERP</b></label>
+                    <div class="col-sm-10">
+                        <?= $tbl_umk->no_erp; ?>
+                    </div>
+
+                    <label for="batas_pumk" class="col-sm-2 col-form-label"><b>Batas PUMK</b></label>
+                    <div class="col-sm-10">
+                        <?= $tbl_umk->batas_pumk; ?>
+                    </div>
+
+                    <label for="user" class="col-sm-2 col-form-label"><b>User</b></label>
+                    <div class="col-sm-10">
+                        <?= $tbl_umk->user; ?>
+                    </div>
+
+                    <label for="jumlah_umk" class="col-sm-2 col-form-label"><b>Jumlah UMK</b></label>
+                    <div class="col-sm-10">
+                        <?= $tbl_umk->jumlah; ?>
+                    </div>
+
+                    <label for="sisa_umk" class="col-sm-2 col-form-label"><b>Sisa UMK</b></label>
+                    <div class="col-sm-10">
+                        <!-- Nanti bikin data sisa_umk -->
+                    </div>
+
                     <div class="table-responsive">
                         <table id="example1" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">No ERP</th>
-                                    <th scope="col">Tgl UMK</th>
-                                    <th scope="col">Batas PUMK</th>
-                                    <th scope="col">User</th>
-                                    <th scope="col">Jumlah</th>
-                                    <th scope="col">Sisa</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">List PUMK</th>
+                                    <th scope="col">Tgl PUMK</th>
+                                    <th scope="col">Jumlah PUMK</th>
+                                    <th scope="col">Dok PUMK</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -42,38 +62,12 @@
                                 <?php foreach ($tbl_umk as $umk) : ?>
                                     <tr>
                                         <th scope="row"><?= $i++; ?></th>
-                                        <td><?= $umk['no_erp']; ?></td>
-                                        <td><?= $umk['tgl_umk']; ?></td>
-                                        <td><?= $umk['batas_pumk']; ?></td>
-                                        <td><?= $umk['user']; ?></td>
+                                        <td><?= $umk['tgl_pumk']; ?></td>
                                         <td><?= $umk['jumlah_umk']; ?></td>
-                                        <td><?= $umk['sisa']; ?></td>
-
-                                        <?php
-                                        if ($umk['status'] == "pengajuan") {
-                                        ?>
-                                            <td><?= $umk['status']; ?></td>
-                                            <td>
-                                                <a href="<?= base_url('permintaanumk/terima_umk/' .  $umk['id']); ?>" class="btn btn-info">Terima UMK</a>
-                                            </td>
-
-                                        <?php } elseif ($umk['status'] == "diterima") { ?>
-                                            <td><?= $umk['status']; ?></td>
-                                            <td>
-                                                <a href="<?= base_url('permintaanumk/terima_umk/' .  $umk['id']); ?>" class="btn btn-info">PUMK</a>
-                                            </td>
-
-                                        <?php } elseif ($umk['status'] == "on going") { ?>
-                                            <td><?= $umk['status']; ?></td>
-                                            <td><a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info"> List PUMK</a></td>
-
-                                            <?php if ($umk['sisa'] == 0) { ?>
-                                                <td><a class="btn btn-info"> Tutup PUMK</a></td>
-                                            <?php } else { ?>
-                                                <td><a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info"> List PUMK</a></td>
-                                            <?php } ?>
-
-                                        <?php } ?>
+                                        <td><?= $umk['dok_pumk']; ?></td>
+                                        <td>
+                                            <a href="<?= base_url('permintaanumk/terima_umk/' .  $umk['id']); ?>" class="btn btn-info">Detail</a>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
