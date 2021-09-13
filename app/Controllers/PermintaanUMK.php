@@ -60,15 +60,38 @@ class PermintaanUMK extends BaseController
 
     public function save_tambah_umk()
     {
-        $id = $this->request->getVar('id');
-        $no_erp = $this->request->getVar('no_erp');
-        $tgl_umk = $this->request->getVar('tgl_umk');
-        $user = $this->request->getVar('user');
+        // if (!$this->validate([
+        //     'foto' => [
+        //         'rules' => 'max_size[dokumen,1024]|mime_in[dokumen, file/pdf]',
+        //         'errors' => [
+        //             'max_size' => 'Ukuran file terlalu besar',
+        //             'mime_in' => 'Bukan dokumen'
+        //         ]
+        //     ]
+        // ])) {
+        //     return redirect()->to('/permintaanumk/tambah_umk')->withInput();
+        // }
+        // // ambil gambar
+        // $fileDokumen = $this->request->getFile('dokumen');
+        // // Apakah tidak ada gambar diupload
+        // if ($fileDokumen->getError() == 4) {
+        //     $namaDokumen = 'default.pdf';
+        // } else {
+        //     // Generate nama foto random
+        //     $namaDokumen = $fileDokumen->getRandomName();
+        //     // pindahkan file ke folder img
+        //     $fileDokumen->move('dokumen', $namaDokumen);
+        // }
+
+        $id         = $this->request->getVar('id');
+        $no_erp     = $this->request->getVar('no_erp');
+        $tgl_umk    = $this->request->getVar('tgl_umk');
+        $user       = $this->request->getVar('user');
         $jumlah_umk = $this->request->getVar('jumlah_umk');
-        $status = $this->request->getVar('status');
+        $status     = $this->request->getVar('status');
 
         $this->PermintaanUMKModel->save([
-            'id'    => $id,
+            'id'         => $id,
             'no_erp'     => $no_erp,
             'tgl_umk'    => $tgl_umk,
             'user'       => $user,
@@ -77,7 +100,6 @@ class PermintaanUMK extends BaseController
         ]);
 
         session()->setFlashdata('pesan', 'Berhasil ditambahkan');
-
         return redirect()->to('/permintaanumk');
     }
 
@@ -93,32 +115,50 @@ class PermintaanUMK extends BaseController
         $builder = $db->table('tbl_umk');
         $query = $builder->select('id', 'no_erp', 'tgl_umk', 'batas_pumk', 'user', 'jumlah_umk', 'sisa', 'status')
             ->where('id', $id)->get();
-
         $data['permintaanumk'] = $query->getRow();
 
         return view('permintaanumk/terima_umk', $data);
     }
 
-    // public function update($id)
-    // {
-    //     $db      = \Config\Database::connect();
-    //     $builder = $db->table('tbl_umk');
+    public function update_terima_umk($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_umk');
 
-    //     $data = [
-    //         'id'         => $id,
-    //         'no_erp'     => $this->request->getVar('no_erp'),
-    //         'tgl_umk'    => $this->request->getVar('tgl_umk'),
-    //         'batas_pumk' => $this->request->getVar('batas_pumk'),
-    //         'user'       => $this->request->getVar('user'),
-    //         'jumlah_umk' => $this->request->getVar('jumlah_umk'),
-    //         'sisa'       => $this->request->getVar('sisa'),
-    //         'status'     => $this->request->getVar('status')
-    //     ];
+        $data = [
+            'id'         => $id,
+            'tgl_umk'    => $this->request->getVar('tgl_umk'),
+            'user'          => $this->request->getVar('user'),
+            'batas_pumk' => $this->request->getVar('batas_pumk'),
+            'jumlah_umk' => $this->request->getVar('jumlah_umk'),
+        ];
 
-    //     $builder->replace($data);
 
-    //     return redirect()->to('/permintaanumk');
-    // }
+        $builder->replace($data);
+
+        return redirect()->to('/permintaanumk');
+    }
+
+    public function edit_pumk($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_umk');
+
+        $data = [
+            'id'         => $id,
+            'no_erp'     => $this->request->getVar('no_erp'),
+            'tgl_umk'    => $this->request->getVar('tgl_umk'),
+            'batas_pumk' => $this->request->getVar('batas_pumk'),
+            'user'       => $this->request->getVar('user'),
+            'jumlah_umk' => $this->request->getVar('jumlah_umk'),
+            'sisa'       => $this->request->getVar('sisa'),
+            'status'     => $this->request->getVar('status')
+        ];
+
+        $builder->replace($data);
+
+        return redirect()->to('/permintaanumk');
+    }
 
     // public function delete($id)
     // {
