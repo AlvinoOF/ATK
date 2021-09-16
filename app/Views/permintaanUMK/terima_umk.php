@@ -8,7 +8,6 @@
     <form action="/permintaanumk/update_terima_umk/<?= $tbl_umk[0]->id ?>" method="post" enctype="multipart/form-data">
 
         <?= csrf_field(); ?>
-        <input type="text" value="<?= $tbl_umk[0]->id ?>">
         <div class="row mb-3">
             <label for="item" class="col-sm-2 col-form-label">No ERP</label>
             <div class="col-sm-10">
@@ -29,7 +28,6 @@
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="user" value=" <?= $tbl_umk[0]->user; ?>" readonly>
                 </div>
-
             </div>
         </div>
 
@@ -58,6 +56,16 @@
             <label for="item" class="col-sm-2 col-form-label">Jumlah Terima UMK</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" value="<?= $tbl_umk[0]->jumlah_umk; ?>" name="jumlah_umk">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="item" class="col-sm-2 col-form-label">Status</label>
+            <div class="col-sm-10">
+                <select name="status" class="form-control">
+                    <option></option>
+                    <option value="diterima">Diterima</option>
+                </select>
             </div>
         </div>
 

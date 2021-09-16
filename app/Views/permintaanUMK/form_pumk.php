@@ -47,6 +47,16 @@
             <div class="col-sm-10">
                 <input type="text" class="form-control" value="" name="dokumen_pumk">
             </div>
+
+            <div class="row mb-3">
+                <label for="item" class="col-sm-2 col-form-label">Status</label>
+                <div class="col-sm-10">
+                    <select name="status" class="form-control">
+                        <option></option>
+                        <option value="diterima">Diterima</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <button type=" submit" class="btn btn-primary">Update</button>

@@ -23,22 +23,22 @@
                 <div class="card-body">
                     <label for="no_erp" class="col-sm-2 col-form-label"><b>No ERP</b></label>
                     <div class="col-sm-10">
-                        <?= $tbl_umk->no_erp; ?>
+                        <?= $tbl_umk[0]->no_erp; ?>
                     </div>
 
                     <label for="batas_pumk" class="col-sm-2 col-form-label"><b>Batas PUMK</b></label>
                     <div class="col-sm-10">
-                        <?= $tbl_umk->batas_pumk; ?>
+                        <?= $tbl_umk[0]->batas_pumk; ?>
                     </div>
 
                     <label for="user" class="col-sm-2 col-form-label"><b>User</b></label>
                     <div class="col-sm-10">
-                        <?= $tbl_umk->user; ?>
+                        <?= $tbl_umk[0]->user; ?>
                     </div>
 
                     <label for="jumlah_umk" class="col-sm-2 col-form-label"><b>Jumlah UMK</b></label>
                     <div class="col-sm-10">
-                        <?= $tbl_umk->jumlah; ?>
+                        <?= $tbl_umk[0]->jumlah_umk; ?>
                     </div>
 
                     <label for="sisa_umk" class="col-sm-2 col-form-label"><b>Sisa UMK</b></label>

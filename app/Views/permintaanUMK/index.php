@@ -57,22 +57,22 @@
                                                 <a href="<?= base_url('permintaanumk/terima_umk/' .  $umk['id']); ?>" class="btn btn-info">Terima UMK</a>
                                             </td>
 
-                                        <?php } elseif ($umk['status'] == "diterima") { ?>
+                                        <?php } else if ($umk['status'] == "diterima") { ?>
                                             <td><?= $umk['status']; ?></td>
                                             <td>
                                                 <a href="<?= base_url('permintaanumk/terima_umk/' .  $umk['id']); ?>" class="btn btn-info">PUMK</a>
                                             </td>
 
-                                        <?php } elseif ($umk['status'] == "on going") { ?>
+                                        <?php } else if ($umk['status'] == "on going") { ?>
                                             <td><?= $umk['status']; ?></td>
                                             <td><a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info"> List PUMK</a></td>
 
                                             <?php if ($umk['sisa'] == 0) { ?>
-                                                <td><a class="btn btn-info"> Tutup PUMK</a></td>
+                                                <td><a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info"> PUMK</a></td>
                                             <?php } else { ?>
-                                                <td><a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info"> List PUMK</a></td>
-                                            <?php } ?>
+                                                <td><a class="btn btn-info"> Tutup PUMK</a></td>
 
+                                            <?php } ?>
                                         <?php } ?>
                                     </tr>
                                 <?php endforeach; ?>
