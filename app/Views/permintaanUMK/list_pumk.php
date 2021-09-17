@@ -43,7 +43,7 @@
 
                     <label for="sisa_umk" class="col-sm-2 col-form-label"><b>Sisa UMK</b></label>
                     <div class="col-sm-10">
-                        <!-- Nanti bikin data sisa_umk -->
+                        <?= $tbl_umk[0]->sisa_umk; ?>
                     </div>
 
                     <div class="table-responsive">
@@ -66,7 +66,7 @@
                                         <td><?= $umk['jumlah_umk']; ?></td>
                                         <td><?= $umk['dok_pumk']; ?></td>
                                         <td>
-                                            <a href="<?= base_url('permintaanumk/terima_umk/' .  $umk['id']); ?>" class="btn btn-info">Detail</a>
+                                            <a href="/permintaanumk/edit_pumk/<?= $tbl_umk->id; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
