@@ -28,6 +28,7 @@ class PermintaanUMK extends BaseController
         return view('permintaanumk/index', $data);
     }
 
+    //------------------------TAMBAH_UMK---------------------
     public function tambah_umk()
     {
         $data = [
@@ -103,6 +104,7 @@ class PermintaanUMK extends BaseController
         return redirect()->to('/permintaanumk');
     }
 
+    //---------------------------TERIMA_UMK------------------------
     public function terima_umk($id)
     {
         $data = [
@@ -133,12 +135,46 @@ class PermintaanUMK extends BaseController
             'jumlah_umk' => $this->request->getVar('jumlah_umk'),
         ];
 
+        $builder->replace($data);
+
+        return redirect()->to('/permintaanumk');
+    }
+
+    //------------------------------FORM_PUMK-------------------------
+    public function form_pumk($id)
+    {
+        $data = [
+            'title' => 'Form Edit Permintaan UMK',
+            'validation' => \Config\Services::validation(),
+            'tbl_umk' => $this->PermintaanUMKModel->getTerimaUMK($id)
+        ];
+
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_umk');
+        $query = $builder->select('id', 'no_erp', 'tgl_umk', 'batas_pumk', 'user', 'jumlah_umk', 'sisa', 'status')
+            ->where('id', $id)->get();
+        $data['permintaanumk'] = $query->getRow();
+
+        return view('permintaanumk/form_pumk', $data);
+    }
+
+    public function update_form_pumk($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_umk');
+
+        $data = [
+            'id'         => $id,
+            'batas_pumk' => $this->request->getVar('batas_pumk'),
+            'jumlah_umk' => $this->request->getVar('jumlah_umk')
+        ];
 
         $builder->replace($data);
 
         return redirect()->to('/permintaanumk');
     }
 
+    //----------------------------EDIT_PUMK--------------------------
     public function edit_pumk($id)
     {
         $db      = \Config\Database::connect();
@@ -151,22 +187,31 @@ class PermintaanUMK extends BaseController
             'batas_pumk' => $this->request->getVar('batas_pumk'),
             'user'       => $this->request->getVar('user'),
             'jumlah_umk' => $this->request->getVar('jumlah_umk'),
+            'sisa'       => $this->request->getVar('sisa')
+        ];
+
+        $builder->replace($data);
+
+        return view('permintaanumk/edit_pumk', $data);
+    }
+
+    public function update_edit_pumk($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_umk');
+
+        $data = [
+            'id'         => $id,
+            'no_erp'     => $this->request->getVar('no_erp'),
+            'tgl_umk'    => $this->request->getVar('tgl_umk'),
+            'batas_pumk' => $this->request->getVar('batas_pumk'),
+            'user'       => $this->request->getVar('user'),
+            'jumlah_umk' => $this->request->getVar('jumlah_umk'),
             'sisa'       => $this->request->getVar('sisa'),
-            'status'     => $this->request->getVar('status')
         ];
 
         $builder->replace($data);
 
         return redirect()->to('/permintaanumk');
     }
-
-    // public function delete($id)
-    // {
-    //     $db      = \Config\Database::connect();
-    //     $builder = $db->table('tbl_umk');
-
-    //     $builder->delete(['id' => $id]);
-
-    //     return redirect()->to('/permintaanumk');
-    // }
 }
