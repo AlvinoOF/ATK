@@ -33,8 +33,8 @@
                                     <th scope="col">Jumlah</th>
                                     <th scope="col">Sisa</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">List PUMK</th>
                                     <th scope="col">Aksi</th>
+                                    <th scope="col">List PUMK</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,31 +48,23 @@
                                         <td><?= $umk['user']; ?></td>
                                         <td><?= $umk['jumlah_umk']; ?></td>
                                         <td><?= $umk['sisa']; ?></td>
+                                        <td><?= $umk['status']; ?></td>
 
-                                        <?php
-                                        if ($umk['status'] == "pengajuan") {
-                                        ?>
-                                            <td><?= $umk['status']; ?></td>
+                                        <?php if ($umk['status'] == "Pengajuan") { ?>
                                             <td>
-                                                <a href="<?= base_url('permintaanumk/terima_umk/' .  $umk['id']); ?>" class="btn btn-info">Terima UMK</a>
+                                                <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info">Terima UMK</a>
                                             </td>
-
-                                        <?php } else if ($umk['status'] == "diterima") { ?>
-                                            <td><?= $umk['status']; ?></td>
+                                        <?php } else if ($umk['status'] == "Diterima") { ?>
                                             <td>
-                                                <a href="<?= base_url('permintaanumk/terima_umk/' .  $umk['id']); ?>" class="btn btn-info">PUMK</a>
+                                                <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info">PUMK</a>
                                             </td>
-
-                                        <?php } else if ($umk['status'] == "on going") { ?>
-                                            <td><?= $umk['status']; ?></td>
-                                            <td><a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info"> List PUMK</a></td>
-
-                                            <?php if ($umk['sisa'] == 0) { ?>
-                                                <td><a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info"> PUMK</a></td>
-                                            <?php } else { ?>
-                                                <td><a class="btn btn-info"> Tutup PUMK</a></td>
-
-                                            <?php } ?>
+                                        <?php } else if ($umk['status'] == "On Going") { ?>
+                                            <td>
+                                                <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info">PUMK</a>
+                                            </td>
+                                            <td>
+                                                <a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info">List PUMK</a>
+                                            </td>
                                         <?php } ?>
                                     </tr>
                                 <?php endforeach; ?>
