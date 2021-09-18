@@ -34,6 +34,7 @@
                                     <th scope="col">Sisa</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Aksi</th>
+                                    <th scope="col">List PUMK</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,9 +49,23 @@
                                         <td><?= $umk['jumlah_umk']; ?></td>
                                         <td><?= $umk['sisa']; ?></td>
                                         <td><?= $umk['status']; ?></td>
-                                        <td>
-                                            <a href="<?= base_url('permintaanumk/terima_umk/' .  $umk['id']); ?>" class="btn btn-info">Detail</a>
-                                        </td>
+
+                                        <?php if ($umk['status'] == "Pengajuan") { ?>
+                                            <td>
+                                                <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info">Terima UMK</a>
+                                            </td>
+                                        <?php } else if ($umk['status'] == "Diterima") { ?>
+                                            <td>
+                                                <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info">PUMK</a>
+                                            </td>
+                                        <?php } else if ($umk['status'] == "On Going") { ?>
+                                            <td>
+                                                <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info">PUMK</a>
+                                            </td>
+                                            <td>
+                                                <a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info">List PUMK</a>
+                                            </td>
+                                        <?php } ?>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
