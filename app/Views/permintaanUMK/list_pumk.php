@@ -12,7 +12,7 @@
             <div class="card mg-b-20">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">List UMK</h4>
+                        <h4 class="card-title mg-b-0">List PUMK</h4>
                         <div class="d-flex my-xl-auto right-content">
                             <div class="mb-3 mb-xl-0" style="margin-right: 10px;">
                                 <a href="<?= base_url('/permintaanumk/tambah_umk'); ?>" class="btn btn-success"><i class="mdi mdi-plus"></i> Tambah</a>
@@ -21,60 +21,62 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <label for="no_erp" class="col-sm-2 col-form-label"><b>No ERP</b></label>
-                    <div class="col-sm-10">
-                        <?= $tbl_umk[0]->no_erp; ?>
-                    </div>
 
-                    <label for="batas_pumk" class="col-sm-2 col-form-label"><b>Batas PUMK</b></label>
-                    <div class="col-sm-10">
-                        <?= $tbl_umk[0]->batas_pumk; ?>
-                    </div>
+                    <form action="/permintaanumk/list_pumk/<?= $tbl_umk[0]->id ?>" method="post" enctype="multipart/form-data">
 
-                    <label for="user" class="col-sm-2 col-form-label"><b>User</b></label>
-                    <div class="col-sm-10">
-                        <?= $tbl_umk[0]->user; ?>
-                    </div>
+                        <?= csrf_field(); ?>
+                        <label for="no_erp" class="col-sm-2 col-form-label"><b>No ERP</b></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="no_erp" value=" <?= $tbl_umk[0]->no_erp; ?>" readonly>
+                        </div>
 
-                    <label for="jumlah_umk" class="col-sm-2 col-form-label"><b>Jumlah UMK</b></label>
-                    <div class="col-sm-10">
-                        <?= $tbl_umk[0]->jumlah_umk; ?>
-                    </div>
+                        <label for="batas_pumk" class="col-sm-2 col-form-label"><b>Batas PUMK</b></label>
+                        <div class="col-sm-10">
+                            <?= $tbl_umk[0]->batas_pumk; ?>
+                        </div>
 
-                    <label for="sisa_umk" class="col-sm-2 col-form-label"><b>Sisa UMK</b></label>
-                    <div class="col-sm-10">
-                        <?= $tbl_umk[0]->sisa_umk; ?>
-                    </div>
+                        <label for="user" class="col-sm-2 col-form-label"><b>User</b></label>
+                        <div class="col-sm-10">
+                            <?= $tbl_umk[0]->user; ?>
+                        </div>
 
-                    <div class="table-responsive">
-                        <table id="example1" class="table key-buttons text-md-nowrap">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Tgl PUMK</th>
-                                    <th scope="col">Jumlah PUMK</th>
-                                    <th scope="col">Dok PUMK</th>
-                                    <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1 + (6 * ($currentPage - 1)); ?>
-                                <?php foreach ($tbl_umk as $umk) : ?>
+                        <label for="jumlah_umk" class="col-sm-2 col-form-label"><b>Jumlah UMK</b></label>
+                        <div class="col-sm-10">
+                            <?= $tbl_umk[0]->jumlah_umk; ?>
+                        </div>
+
+                        <label for="sisa_umk" class="col-sm-2 col-form-label"><b>Sisa UMK</b></label>
+                        <div class="col-sm-10">
+                            <?= $tbl_umk[0]->sisa; ?>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="example1" class="table key-buttons text-md-nowrap">
+                                <thead>
                                     <tr>
-                                        <th scope="row"><?= $i++; ?></th>
-                                        <td><?= $umk['tgl_pumk']; ?></td>
-                                        <td><?= $umk['jumlah_umk']; ?></td>
-                                        <td><?= $umk['dok_pumk']; ?></td>
-                                        <td>
-                                            <a href="/permintaanumk/edit_pumk/<?= $tbl_umk->id; ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                        </td>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Tgl PUMK</th>
+                                        <th scope="col">Jumlah PUMK</th>
+                                        <th scope="col">Dok PUMK</th>
+                                        <th scope="col">Aksi</th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <?= $pager->links() ?>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1 + (6 * ($currentPage - 1)); ?>
+                                    <?php foreach ($tbl_umk as $umk) : ?>
+                                        <tr>
+                                            <th scope="row"><?= $i++; ?></th>
+                                            <td><?= $umk->tgl_umk; ?></td>
+                                            <td><?= $umk->jumlah_umk; ?></td>
+                                            <td></td>
+                                            <td>
+                                                <a href="<?= base_url('permintaanumk/edit_pumk/' . $umk->id); ?>" class="btn btn-info">Edit</a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                 </div>
             </div>
         </div>

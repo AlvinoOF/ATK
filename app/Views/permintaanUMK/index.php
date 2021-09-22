@@ -52,16 +52,28 @@
 
                                         <?php if ($umk['status'] == "Pengajuan") { ?>
                                             <td>
-                                                <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info">Terima UMK</a>
+                                                <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info" style="font-size: 12px">Terima UMK</a>
                                             </td>
                                         <?php } else if ($umk['status'] == "Diterima") { ?>
                                             <td>
                                                 <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info">PUMK</a>
                                             </td>
+
                                         <?php } else if ($umk['status'] == "On Going") { ?>
+                                            <?php if ($umk['sisa'] == 0) { ?>
+                                                <td>
+                                                    <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-warning" style="font-size: 12px"> Tutup PUMK</a>
+                                                </td>
+                                            <?php } else { ?>
+                                                <td>
+                                                    <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info"> PUMK</a>
+                                                </td>
+                                            <?php } ?>
                                             <td>
-                                                <a href="<?= base_url('permintaanumk/terima_umk/' . $umk['id']); ?>" class="btn btn-info">PUMK</a>
+                                                <a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info">List PUMK</a>
                                             </td>
+                                        <?php } else if ($umk['status'] == "Closed") { ?>
+                                            <td></td>
                                             <td>
                                                 <a href="<?= base_url('permintaanumk/list_pumk/' . $umk['id']); ?>" class="btn btn-info">List PUMK</a>
                                             </td>
@@ -71,7 +83,6 @@
                             </tbody>
                         </table>
                     </div>
-
                     <?= $pager->links() ?>
                 </div>
             </div>

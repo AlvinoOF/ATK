@@ -30,12 +30,12 @@
 
             <label for="sisa_umk" class="col-sm-2 col-form-label"><b>Sisa UMK</b></label>
             <div class="col-sm-10">
-                <!-- Nanti bikin data sisa_umk -->
+                <?= $tbl_umk->sisa; ?>
             </div>
 
             <label for="tgl_tutup_pumk" class="col-sm-2 col-form-label"><b>Tanggal Penutupan</b></label>
             <div class="col-sm-10">
-                <input type="datetime" class="form-control" value="" name="tgl_tutup_pumk">
+                <input type="datetime" class="form-control" value="" name="batas_pumk">
             </div>
 
             <label for="dokumen_pumk" class="col-sm-2 col-form-label">Dokumen Pendukung</label>
