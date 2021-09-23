@@ -10,7 +10,7 @@
         <div class="row mb-3">
             <label for="no_erp" class="col-sm-2 col-form-label"><b>No ERP</b></label>
             <div class="col-sm-10">
-                <?= $tbl_umk->no_erp; ?>
+                <input type="text" class="form-control" value="<?= $tbl_umk->no_erp; ?>" readonly>
             </div>
 
             <label for="batas_pumk" class="col-sm-2 col-form-label"><b>Batas PUMK</b></label>
@@ -30,7 +30,7 @@
 
             <label for="sisa_umk" class="col-sm-2 col-form-label"><b>Sisa UMK</b></label>
             <div class="col-sm-10">
-                <!-- Nanti bikin data sisa_umk -->
+                <?= $tbl_umk->sisa; ?>
             </div>
 
             <label for="tgl_pumk" class="col-sm-2 col-form-label"><b>Tanggal PUMK</b></label>
