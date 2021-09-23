@@ -43,6 +43,13 @@
                 </div>
 
                 <div class="row mb-3">
+                    <label for="dokumen" class="col-sm-2 col-form-label">Dokumen</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" id="dokumen" name="dokumen">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
                     <label for="status" class="col-sm-2 col-form-label">Status</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="status" name="status">
