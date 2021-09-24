@@ -61,28 +61,32 @@ class PermintaanUMK extends BaseController
 
     public function save_tambah_umk()
     {
-        // if (!$this->validate([
-        //     'foto' => [
-        //         'rules' => 'max_size[dokumen,1024]|mime_in[dokumen, file/pdf]',
-        //         'errors' => [
-        //             'max_size' => 'Ukuran file terlalu besar',
-        //             'mime_in' => 'Bukan dokumen'
-        //         ]
-        //     ]
-        // ])) {
-        //     return redirect()->to('/permintaanumk/tambah_umk')->withInput();
-        // }
-        // // ambil gambar
-        // $fileDokumen = $this->request->getFile('dokumen');
-        // // Apakah tidak ada gambar diupload
-        // if ($fileDokumen->getError() == 4) {
-        //     $namaDokumen = 'default.pdf';
-        // } else {
-        //     // Generate nama foto random
-        //     $namaDokumen = $fileDokumen->getRandomName();
-        //     // pindahkan file ke folder img
-        //     $fileDokumen->move('dokumen', $namaDokumen);
-        // }
+        //validasi input
+        if (!$this->validate([
+            'dokumen' => [
+                'rules' => 'max_size[dokumen,1024]|is_image[dokumen]|mime_in[dokumen,image/jpg,image/jpeg,image/png]',
+                'errors' => [
+                    'max_size' => 'Ukuran gambar terlalu besar',
+                    'is_image' => 'Bukan gambar',
+                    'mime_in' => 'Bukan gambar'
+                ]
+            ]
+        ])) {
+            // $validation = \Config\Services::validation();
+            // return redirect()->to('/produk/create')->withInput()->with('validation', $validation);
+            return redirect()->to('/permintaanumk/tambah_umk')->withInput();
+        }
+        // ambil gambar
+        $fileDokumen = $this->request->getFile('dokumen');
+        // Apakah tidak ada gambar diupload
+        if ($fileDokumen->getError() == 4) {
+            $namaDokumen = 'default.jpg';
+        } else {
+            // Generate nama foto random
+            $namaDokumen = $fileDokumen->getRandomName();
+            // pindahkan file ke folder img
+            $fileDokumen->move('img', $namaDokumen);
+        }
 
         $id         = $this->request->getVar('id');
         $no_erp     = $this->request->getVar('no_erp');
@@ -90,6 +94,7 @@ class PermintaanUMK extends BaseController
         $user       = $this->request->getVar('user');
         $jumlah_umk = $this->request->getVar('jumlah_umk');
         $status     = $this->request->getVar('status');
+        $dokumen    = $namaDokumen;
 
         $this->PermintaanUMKModel->save([
             'id'         => $id,
@@ -97,7 +102,8 @@ class PermintaanUMK extends BaseController
             'tgl_umk'    => $tgl_umk,
             'user'       => $user,
             'jumlah_umk' => $jumlah_umk,
-            'status'     => $status
+            'status'     => $status,
+            'dokumen'    => $dokumen,
         ]);
 
         session()->setFlashdata('pesan', 'Berhasil ditambahkan');
@@ -130,7 +136,7 @@ class PermintaanUMK extends BaseController
         $data = [
             'id'         => $id,
             'tgl_umk'    => $this->request->getVar('tgl_umk'),
-            'user'          => $this->request->getVar('user'),
+            'user'       => $this->request->getVar('user'),
             'batas_pumk' => $this->request->getVar('batas_pumk'),
             'jumlah_umk' => $this->request->getVar('jumlah_umk'),
         ];
@@ -138,6 +144,27 @@ class PermintaanUMK extends BaseController
         $builder->replace($data);
 
         return redirect()->to('/permintaanumk');
+    }
+    //--------------------------LIST_PUMK----------------------------
+    public function list_pumk($id)
+    {
+        $currentPage = $this->request->getVar('page_list_pumk') ? $this->request->getVar('page_list_pumk') : 1;
+
+        $data = [
+            'title' => 'Form Edit Permintaan UMK',
+            'validation' => \Config\Services::validation(),
+            'tbl_umk' => $this->PermintaanUMKModel->getListPUMK($id),
+            'pager' => $this->PermintaanUMKModel->pager,
+            'currentPage' => $currentPage
+        ];
+
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_umk');
+        $query = $builder->select('id', 'no_erp', 'tgl_umk', 'batas_pumk', 'user', 'jumlah_umk', 'sisa', 'status')
+            ->where('id', $id)->get();
+        $data['permintaanumk'] = $query->getRow();
+
+        return view('permintaanumk/list_pumk', $data);
     }
 
     //------------------------------FORM_PUMK-------------------------
@@ -163,10 +190,39 @@ class PermintaanUMK extends BaseController
         $db      = \Config\Database::connect();
         $builder = $db->table('tbl_umk');
 
+        if (!$this->validate([
+            'dokumen' => [
+                'rules' => 'max_size[dokumen,1024]|is_image[dokumen]|mime_in[dokumen,image/jpg,image/jpeg,image/png]',
+                'errors' => [
+                    'max_size' => 'Ukuran gambar terlalu besar',
+                    'is_image' => 'Bukan gambar',
+                    'mime_in' => 'Bukan gambar'
+                ]
+            ]
+        ])) {
+            return redirect()->to('/permintaanumk/list_pumk/' . $this->request->getVar('slug'))->withInput();
+        }
+
+        $fileDokumen = $this->request->getFile('dokumen');
+
+        // cek gambar apakah tetap gambar lama
+        if ($fileDokumen->getError() == 4) {
+            $namaDokumen = $this->request->getVar('dokumenLama');
+        } else {
+            // generate nama file random
+            $namaDokumen = $fileDokumen->getRandomName();
+            // pindahkan gambar
+            $fileDokumen->move('img', $namaDokumen);
+
+            // hapus file lama
+            unlink('img/' . $this->request->getVar('dokumenLama'));
+        }
+
         $data = [
             'id'         => $id,
             'batas_pumk' => $this->request->getVar('batas_pumk'),
-            'jumlah_umk' => $this->request->getVar('jumlah_umk')
+            'jumlah_umk' => $this->request->getVar('jumlah_umk'),
+            'dokumen'    => $namaDokumen
         ];
 
         $builder->replace($data);
@@ -200,6 +256,34 @@ class PermintaanUMK extends BaseController
         $db      = \Config\Database::connect();
         $builder = $db->table('tbl_umk');
 
+        if (!$this->validate([
+            'dokumen' => [
+                'rules' => 'max_size[dokumen,1024]|is_image[dokumen]|mime_in[dokumen,image/jpg,image/jpeg,image/png]',
+                'errors' => [
+                    'max_size' => 'Ukuran gambar terlalu besar',
+                    'is_image' => 'Bukan gambar',
+                    'mime_in' => 'Bukan gambar'
+                ]
+            ]
+        ])) {
+            return redirect()->to('/permintaanumk/list_pumk/' . $this->request->getVar('slug'))->withInput();
+        }
+
+        $fileDokumen = $this->request->getFile('dokumen');
+
+        // cek gambar apakah tetap gambar lama
+        if ($fileDokumen->getError() == 4) {
+            $namaDokumen = $this->request->getVar('dokumenLama');
+        } else {
+            // generate nama file random
+            $namaDokumen = $fileDokumen->getRandomName();
+            // pindahkan gambar
+            $fileDokumen->move('img', $namaDokumen);
+
+            // hapus file lama
+            unlink('img/' . $this->request->getVar('dokumenLama'));
+        }
+
         $data = [
             'id'         => $id,
             'no_erp'     => $this->request->getVar('no_erp'),
@@ -208,6 +292,7 @@ class PermintaanUMK extends BaseController
             'user'       => $this->request->getVar('user'),
             'jumlah_umk' => $this->request->getVar('jumlah_umk'),
             'sisa'       => $this->request->getVar('sisa'),
+            'dokumen'    => $namaDokumen,
         ];
 
         $builder->replace($data);
