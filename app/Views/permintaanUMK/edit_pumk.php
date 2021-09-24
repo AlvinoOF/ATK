@@ -38,9 +38,9 @@
                 <input type="datetime" class="form-control" value="" name="batas_pumk">
             </div>
 
-            <label for="dokumen_pumk" class="col-sm-2 col-form-label">Dokumen Pendukung</label>
+            <label for="dokumen" class="col-sm-2 col-form-label">Dokumen Pendukung</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" value="" name="dokumen_pumk">
+                <input type="text" class="form-control" value="" name="dokumen">
             </div>
         </div>
 
