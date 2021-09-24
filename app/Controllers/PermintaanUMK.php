@@ -135,16 +135,53 @@ class PermintaanUMK extends BaseController
 
         $data = [
             'id'         => $id,
+            'no_erp'     => $this->request->getVar('no_erp'),
             'tgl_umk'    => $this->request->getVar('tgl_umk'),
             'user'       => $this->request->getVar('user'),
             'batas_pumk' => $this->request->getVar('batas_pumk'),
             'jumlah_umk' => $this->request->getVar('jumlah_umk'),
+            'sisa'       => $this->request->getVar('sisa'),
+            'status'     => $this->request->getVar('status'),
         ];
 
         $builder->replace($data);
 
         return redirect()->to('/permintaanumk');
     }
+
+    //---------------------------TUTUP_UMK------------------------
+    public function tutup_umk($id)
+    {
+        $data = [
+            'title' => 'Form Tutup UMK',
+            'validation' => \Config\Services::validation(),
+            'tbl_umk' => $this->PermintaanUMKModel->getTerimaUMK($id)
+        ];
+
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_umk');
+        $query = $builder->select('id', 'no_erp', 'tgl_umk', 'batas_pumk', 'user', 'jumlah_umk', 'sisa', 'status')
+            ->where('id', $id)->get();
+        $data['permintaanumk'] = $query->getRow();
+
+        return view('permintaanumk/tutup_umk', $data);
+    }
+
+    public function update_tutup_umk($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tbl_umk');
+
+        $data = [
+            'id'         => $id,
+            'status'    => $this->request->getVar('status'),
+        ];
+
+        $builder->replace($data);
+
+        return redirect()->to('/permintaanumk');
+    }
+
     //--------------------------LIST_PUMK----------------------------
     public function list_pumk($id)
     {
