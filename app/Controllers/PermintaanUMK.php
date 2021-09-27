@@ -336,7 +336,4 @@ class PermintaanUMK extends BaseController
 
         return redirect()->to('/permintaanumk');
     }
-
-
-    TEst
 }
