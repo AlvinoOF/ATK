@@ -174,7 +174,13 @@ class PermintaanUMK extends BaseController
 
         $data = [
             'id'         => $id,
-            'status'    => $this->request->getVar('status'),
+            'no_erp'     => $this->request->getVar('no_erp'),
+            'tgl_umk' => $this->request->getVar('tgl_umk'),
+            'batas_pumk' => $this->request->getVar('batas_pumk'),
+            'user'       => $this->request->getVar('user'),
+            'jumlah_umk' => $this->request->getVar('jumlah_umk'),
+            'sisa'       => $this->request->getVar('sisa'),
+            'status'     => $this->request->getVar('status'),
         ];
 
         $builder->replace($data);
