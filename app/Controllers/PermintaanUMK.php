@@ -39,26 +39,6 @@ class PermintaanUMK extends BaseController
         return view('permintaanumk/tambah_umk', $data);
     }
 
-    // public function sendEmail()
-    // {
-    //     $email = \Config\Services::email();
-    //     $id_user = $this->request->getVar('id_user');
-
-    //     $email->setTo('derago118@gmail.com');
-    //     $email->setFrom('johndoe@gmail.com');
-
-    //     $email->setSubject("Invoice Permintaan UMK");
-    //     $email->setMessage("id user" . $id_user);
-
-    //     if ($email->send() == TRUE) {
-    //         echo 'Email successfully sent';
-    //     } else {
-    //         echo "email gagal kirim";
-    //     }
-
-    //     $email->send();
-    // }
-
     public function save_tambah_umk()
     {
         //validasi input
@@ -167,6 +147,37 @@ class PermintaanUMK extends BaseController
         return view('permintaanumk/tutup_umk', $data);
     }
 
+    public function sendEmailTutupPUMK($data_mail)
+    {
+        $batas_pumk = date('Y-m-d');
+        $besok = date('Y-m-d', strtotime('+1 minutes', strtotime($batas_pumk)));
+
+        $data = json_decode($data_mail);
+
+        $email = \Config\Services::email();
+        $id = $this->request->getVar('id');
+
+        $email->setTo('derago118@gmail.com');
+        $email->setFrom('no reply');
+
+        $email->setSubject("Invoice Penutupan UMK");
+        $email->setMessage("id" . $id);
+
+        if ($data->code == "200") {
+            $ms = "UMK tanggal " . $besok . " belum tutup";
+        }
+
+        $this->email->message($ms);
+
+        if ($email->send() == TRUE) {
+            echo 'Email successfully sent';
+        } else {
+            echo "email gagal kirim";
+        }
+
+        $email->send();
+    }
+
     public function update_tutup_umk($id)
     {
         $db      = \Config\Database::connect();
@@ -175,7 +186,7 @@ class PermintaanUMK extends BaseController
         $data = [
             'id'         => $id,
             'no_erp'     => $this->request->getVar('no_erp'),
-            'tgl_umk' => $this->request->getVar('tgl_umk'),
+            'tgl_umk'    => $this->request->getVar('tgl_umk'),
             'batas_pumk' => $this->request->getVar('batas_pumk'),
             'user'       => $this->request->getVar('user'),
             'jumlah_umk' => $this->request->getVar('jumlah_umk'),
@@ -243,7 +254,7 @@ class PermintaanUMK extends BaseController
                 ]
             ]
         ])) {
-            return redirect()->to('/permintaanumk/list_pumk/' . $this->request->getVar('slug'))->withInput();
+            return redirect()->to('/permintaanumk/list_pumk/');
         }
 
         $fileDokumen = $this->request->getFile('dokumen');
@@ -309,7 +320,7 @@ class PermintaanUMK extends BaseController
                 ]
             ]
         ])) {
-            return redirect()->to('/permintaanumk/list_pumk/' . $this->request->getVar('slug'))->withInput();
+            return redirect()->to('/permintaanumk/list_pumk/');
         }
 
         $fileDokumen = $this->request->getFile('dokumen');

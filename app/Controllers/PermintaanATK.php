@@ -86,9 +86,9 @@ class PermintaanATK extends BaseController
         $status = $this->request->getVar('status');
 
         $this->PermintaanATKModel->save([
-            'id_user' => $id_user,
-            'tgl_permintaan'        => $tgl_permintaan,
-            'status'        => $status
+            'id_user'        => $id_user,
+            'tgl_permintaan' => $tgl_permintaan,
+            'status'         => $status
         ]);
 
         session()->setFlashdata('pesan', 'Berhasil ditambahkan');
